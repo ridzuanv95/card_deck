@@ -1,0 +1,27 @@
+
+<form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+    <h1>Card Deck Generator</h1>
+    <div class="formcontainer">
+        <hr />
+        <div class="container">
+            <label for="num_people"><strong>Number of People </strong></label>
+            <input type="number" placeholder="Enter number of people" name="num_people" formControlName="num_people" required>
+
+            <!-- <span *ngIf="cardForm.get('num_people').errors && (cardForm.get('num_people').touched || cardForm.get('num_people').dirty)">
+                <div style="color:red" *ngIf="cardForm.get('num_people').errors.required">
+                    Number of people is required
+                </div>
+            </span> -->
+        </div>
+        
+        <button [disabled]="cardForm.invalid" type="submit">Submit</button>
+
+        <div *ngIf="data">
+            <label for="result"><strong>Generate Card Deck Result : </strong></label> <br>
+            <label for="result"><strong>remaining card available : </strong> {{ data.remaining_card_av }} </label>
+            <div *ngFor="let cards of data.list_player_card; index as i" class="container">
+                <label>Player {{i + 1}} : {{ cards }}</label>
+            </div>
+        </div>
+    </div>
+</form>
