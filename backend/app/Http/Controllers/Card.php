@@ -58,7 +58,7 @@ class Card extends Controller
             if(empty($list_card)) $remaining_card = 0;
             else $remaining_card = array_values($list_card);
 
-            return response()->json(['status' => true, 'message' => 'Successfully created list of card', 'list_player_card' => $list_player_card, 'remaining_card_av' => $remaining_card], 200);
+            return response()->json(['status' => true, 'message' => 'Successfully created list of card', 'list_player_card' => $list_player_card, 'card_per_person' => $card_per_person, 'remaining_card_av' => $remaining_card], 200);
             
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage(), 'data' => null], 500);

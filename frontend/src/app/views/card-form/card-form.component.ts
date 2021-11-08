@@ -17,7 +17,7 @@ export class CardFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cardForm = this.fb.group({
-      num_people: ['', [Validators.required]]
+      num_people: ['', [Validators.required, Validators.minLength(1), Validators.pattern("^[0-9]*$")]]
     });
   };
 
