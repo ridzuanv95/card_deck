@@ -18,6 +18,7 @@ export class CardFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // form validation 
     this.cardForm = this.fb.group({
       num_people: ['', [Validators.required, Validators.minLength(1), Validators.pattern("^[0-9]*$")]],
       distribute_type: [1, [Validators.required, Validators.minLength(1), Validators.pattern("^[1-2]*$")]]
@@ -36,14 +37,18 @@ export class CardFormComponent implements OnInit {
       this.data = res
       console.log('result : ', this.data)
     }, (error : any) => {
+      // check if error from backend is status 400
       if(error.status == 400){
         alert('Error : ' + error.error.message)
+      }else{
+        alert('Error 500 : Server Error')
       }
      })
 
   }
 
   onChange(event){
+    // if change value option
     this.distribute_type = event.target.value
     console.log('type distribute : ', this.distribute_type)
   }
