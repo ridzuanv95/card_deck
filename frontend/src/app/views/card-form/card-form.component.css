@@ -19,20 +19,25 @@ input[type=number] {
  display: inline-block;
  border: 1px solid #ccc;
  box-sizing: border-box;
- }
+}
+
+.wrapper {
+    text-align: center;
+}
 
 button {
- background-color: #8ebf42;
+ background-color: #42bf46;
  color: white;
  padding: 14px 0;
  margin: 10px 0;
  border: none;
- /* cursor: grabbing; */
- width: 100%;
+ border-radius: 12px;
+ width: 50%;
 }
 
-button:hover {
- opacity: 0.8;
+button:disabled {
+ /* opacity: 0.8; */
+ background: #dddddd;
 }
 
 h1 {

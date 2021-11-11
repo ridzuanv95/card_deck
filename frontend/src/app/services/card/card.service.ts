@@ -14,7 +14,7 @@ export class CardService {
 
   generateCard(data){
     try {
-      return this.http.post(`${this.uri}/generate-card`, {'num_people': data })
+      return this.http.post(`${this.uri}/generate-card`, data )
     } catch (error) {
       console.log('login.service.userSignIn Error : ', error)
     }

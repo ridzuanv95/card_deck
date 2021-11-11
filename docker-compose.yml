@@ -1,0 +1,38 @@
+version: '3.7'
+networks:
+    app-network:
+       driver: bridge
+services:
+
+    api:
+        container_name: backend
+        build:
+             context: ./backend
+             dockerfile: Dockerfile
+        image: api-community
+        restart: always
+        working_dir: /var/www
+        networks:
+        - app-network
+
+    nginx:
+        container_name: nginx
+        build:
+             context: ./
+             dockerfile: ./nginx/Dockerfile
+        restart: always
+        ports:
+        - 8000:80
+        networks:
+        - app-network
+
+    webapp:
+        container_name: frontend
+        build:
+             context: ./frontend
+             dockerfile: Dockerfile
+        image: webapp-community
+        ports:
+            - 80:80
+            - 443:443
+        restart: always

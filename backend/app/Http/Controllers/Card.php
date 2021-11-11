@@ -13,11 +13,15 @@ class Card extends Controller
             $messages = [
                 'num_people.required' => 'Input value does not exist',
                 'num_people.integer' => 'Number of people must be integer only',
-                'num_people.min' => 'Input value is invalid'
+                'num_people.min' => 'Input value is invalid',
+                'distribute_type.required' => 'Distribute type is required',
+                'distribute_type.integer' => 'Distribute type must be integer only',
+                'distribute_type.between' => 'Invalid value distribute type'
             ];
 
             $validator = Validator::make($request->all(), [
                 'num_people' => 'required|integer|min:1',
+                'distribute_type' => 'required|integer|between:1,2'
             ], $messages);
 
             if ($validator->fails()) return response(['status' => false, 'message' => $validator->errors()->all(), 'data' => null], 400);
@@ -29,11 +33,15 @@ class Card extends Controller
             'C-A', 'C-2', 'C-3', 'C-4', 'C-5', 'C-6', 'C-7', 'C-8', 'C-9', 'C-X', 'C-J','C-Q', 'C-K'];
 
             $total_people = $request->input('num_people');
+            $card_distribute = $request->input('distribute_type');
+            $output = new ConsoleOutput();
+            $output->writeln('hahaha: '. $card_distribute);
+
             $list_player_card = array();
             $card_per_person = $this->numberPrecision($total_people);
 
             if($card_per_person > 1){
-                $output = new ConsoleOutput();
+               
                 $output->writeln('card per person : '. $card_per_person);
                 
                 for($x = 0; $x < $total_people; $x++){
@@ -56,9 +64,20 @@ class Card extends Controller
             }
 
             if(empty($list_card)) $remaining_card = 0;
-            else $remaining_card = array_values($list_card);
+            else{
+                $remaining_card = array_values($list_card);
+                if($card_distribute == 2){
+                    for($x = 0; $x < count($remaining_card); $x++){
+                        $output->writeln('hahaha : '. $remaining_card[$x]);
+                        array_push($list_player_card[$x], $remaining_card[$x]);
+                    }
+                    $remaining_card = 0;
+                }
+            } 
 
-            return response()->json(['status' => true, 'message' => 'Successfully created list of card', 'list_player_card' => $list_player_card, 'card_per_person' => $card_per_person, 'remaining_card_av' => $remaining_card], 200);
+            // else $remaining_card = array_values($list_card);
+
+            return response()->json(['status' => true, 'message' => 'Successfully created list of card', 'list_player_card' => $list_player_card, 'remaining_card_av' => $remaining_card], 200);
             
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage(), 'data' => null], 500);

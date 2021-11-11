@@ -19,12 +19,22 @@
                 </div>
             </span>
         </div>
+
+        <div class="container">
+            <label for="distribute_type"><strong>Card distribution : </strong></label>
+            <select id="distribute_type" name="distribute_type" (change)="onChange($event)" [value]='1'>
+                <option value='1'>Evenly between player</option>
+                <option value='2'>Used all card</option>
+            </select>
+        </div>
         
-        <button [disabled]="cardForm.invalid" type="submit">Submit</button>
+        <div class="wrapper">
+            <button [disabled]="cardForm.invalid" type="submit">Submit</button>
+        </div>
+        
 
         <div *ngIf="data">
             <label for="result"><strong>Generate Card Deck Result : </strong></label> <br>
-            <label for="result"><strong>card per person : </strong> {{ data.card_per_person }} </label> <br>
             <label for="result"><strong>remaining card available : </strong> {{ data.remaining_card_av }} </label>
             <div *ngFor="let cards of data.list_player_card; index as i" class="container">
                 <label><strong>Player {{i + 1}}  :</strong>  {{ cards }}</label>

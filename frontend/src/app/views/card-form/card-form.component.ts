@@ -10,6 +10,8 @@ import { CardService } from 'src/app/services/card/card.service';
 export class CardFormComponent implements OnInit {
   cardForm: FormGroup;
   data: any;
+  status: any;
+  distribute_type: any = 1;
   constructor(
     private fb: FormBuilder,
     private card:CardService
@@ -17,18 +19,33 @@ export class CardFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cardForm = this.fb.group({
-      num_people: ['', [Validators.required, Validators.minLength(1), Validators.pattern("^[0-9]*$")]]
+      num_people: ['', [Validators.required, Validators.minLength(1), Validators.pattern("^[0-9]*$")]],
+      distribute_type: [1, [Validators.required, Validators.minLength(1), Validators.pattern("^[1-2]*$")]]
     });
   };
 
   onSubmit(){
     var num_people = this.cardForm.get("num_people")?.value;
-    console.log('total people : ', num_people)
-    this.card.generateCard(num_people)?.subscribe((res)=>{
-      this.data = res
-      console.log('data dari server : ', this.data)
-    })
 
+    var input_data = {
+      'num_people': num_people,
+      'distribute_type': this.distribute_type
+    }
+
+    this.card.generateCard(input_data)?.subscribe((res)=>{
+      this.data = res
+      console.log('result : ', this.data)
+    }, (error : any) => {
+      if(error.status == 400){
+        alert('Error : ' + error.error.message)
+      }
+     })
+
+  }
+
+  onChange(event){
+    this.distribute_type = event.target.value
+    console.log('type distribute : ', this.distribute_type)
   }
 
 }
