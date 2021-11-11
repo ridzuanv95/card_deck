@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --output-path=./dist/build",
+    "build": "ng build --progress --output-path=./dist/build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
