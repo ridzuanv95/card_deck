@@ -2,15 +2,15 @@ init:
 	docker-compose up -d
 	docker system prune -a -f --volumes
 
-frontend:
+frontend1:
 	docker-compose up -d webapp
 	docker system prune -a -f --volumes
 	  
-backend:
+backend1:
 	docker-compose up -d api
 	docker system prune -a -f --volumes
 
-nginx:
+nginx1:
 	docker-compose up -d nginx
 	docker system prune -a -f --volumes
 

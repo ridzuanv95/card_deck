@@ -46,9 +46,6 @@ RUN php artisan cache:clear
 RUN php artisan route:cache
 # RUN php artisan config:cache
 
-# Copy upload.ini to /usr/local/etc/php/conf.d
-COPY uploads.ini /usr/local/etc/php/conf.d
-
 # Copy php.ini to /usr/local/etc/php
 COPY php.ini /usr/local/etc/php
 
