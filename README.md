@@ -38,5 +38,6 @@ Two framework will be used for this test :
 - cd card_deck
 - run `docker-compose up -d` or `make init` if using Makefile
 - Navigate to `http://localhost` to see the UI
+
 P.S. it takes a while to compile 3 container in docker please wait & have a ☕
 
